@@ -1,0 +1,1 @@
+import Link from "next/link";export default function NotFound(){return <section className="confirmation section"><span className="eyebrow">ERREUR 404</span><h1>Cette page s’est évaporée.</h1><p>Comme une note de tête, elle n’est plus là.</p><Link href="/" className="button">Retour à l’accueil</Link></section>}
