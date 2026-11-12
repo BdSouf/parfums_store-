@@ -151,4 +151,38 @@ check('merged storefront shell and incoming editorial selections render in both 
   const home=markup('HomeView');assert(home.includes('pack-showcase'));assert(home.includes('/images/full-bottles-studio-web-v3.png'));assert(home.includes('type=decant'));
  }
 });
+check('header hydration keeps the server cart count when browser data has already restored',()=>{
+ const {MarketShell}=uiLoad('src/components/market-shell.tsx');
+ for(const lang of ['fr','ar']){
+  query=new URLSearchParams({lang});demoState=E.seed();
+  const render=()=>renderToStaticMarkup(React.createElement(MarketProvider,null,React.createElement(MarketShell,null,React.createElement('section',null,'Catalogue'))));
+  const empty=render();demoState={...demoState,cart:[{variantId:'demo-0-b',quantity:3}]};
+  const restored=render();assert.equal(restored,empty);assert(restored.includes(lang==='fr'?'Panier, 0':'السلة, 0'));
+ }
+});
+check('header menu and search animations retain unique identities in every open state',()=>{
+ let states=[],cursor=0;
+ const Presence=({children})=>children;
+ const {MarketShell}=loader({
+  react:{...React,useState:()=>[states[cursor++],()=>{}],useRef:value=>({current:value}),useEffect:()=>{},useSyncExternalStore:()=>false},
+  'motion/react':{useReducedMotion:()=>true,AnimatePresence:Presence,motion:new Proxy({},{get:(_,tag)=>tag})},
+  'next/navigation':{usePathname:()=>'/produits'},
+  'next/image':()=>null,
+  './market-context':{useMarket:()=>({lang:'fr',t:fr=>fr}),LanguageSwitch:()=>null,MLink:()=>null},
+  '@/lib/store':{useStore:()=>({cart:[],storageError:''})}
+ })('src/components/market-shell.tsx');
+ for(const [menu,search,expected] of [[false,false,0],[true,false,2],[false,true,1],[true,true,3]]){
+  states=[menu,search,false];cursor=0;
+  const shell=MarketShell({children:null});
+  const header=React.Children.toArray(shell.props.children).find(node=>React.isValidElement(node)&&node.type.name==='HeritageHeader');
+  assert(header);
+  const tree=header.type();
+  const presence=React.Children.toArray(tree.props.children).find(node=>node.type===Presence);
+  const nodes=presence.props.children.filter(React.isValidElement);
+  assert.equal(nodes.length,expected);
+  const keys=nodes.map(node=>node.key);
+  assert(keys.every(key=>typeof key==='string'&&key.length>0),'Animated siblings need explicit stable keys');
+  assert.equal(new Set(keys).size,keys.length,'Menu backdrop, menu panel and search cannot share a key');
+ }
+});
 console.log(`${count} vérifications réussies.`);

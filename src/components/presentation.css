@@ -1,0 +1,74 @@
+/* Presentation corrections shared by the two themes and languages. */
+.heritage-home .decant-formats button {
+ display:grid;
+ place-items:center;
+ padding:0 10px;
+ text-align:center;
+ line-height:1;
+}
+.decant-format-value {
+ display:inline-flex;
+ align-items:baseline;
+ justify-content:center;
+ gap:4px;
+ line-height:1;
+ white-space:nowrap;
+ unicode-bidi:isolate;
+ font-variant-numeric:lining-nums tabular-nums;
+}
+.decant-format-value>span{font:inherit;line-height:1}
+.decant-format-value>small{font:500 8px/1 var(--font-sans),sans-serif;letter-spacing:0;text-transform:none}
+/* A grouped legend stays readable without pretending to measure the photo. */
+.heritage-home .decant-size-markers {
+ left:16px;
+ right:16px;
+ bottom:20px;
+ display:flex;
+ justify-content:center;
+ gap:8px;
+ direction:ltr;
+}
+.heritage-home .decant-size-markers b {
+ display:grid;
+ place-items:center;
+ min-width:54px;
+ min-height:29px;
+ padding:6px 10px;
+ background:#17120dcc;
+ border:1px solid #e2b16a66;
+ border-radius:20px;
+ color:#f4e8d5;
+ line-height:1;
+ font:500 10px/1 var(--font-sans),sans-serif;
+ text-transform:none;
+ font-variant-numeric:tabular-nums;
+ transform:none;
+}
+.heritage-home .decant-size-markers b::before{content:none}
+.heritage-home .decant-size-markers b.active{color:#17120d;background:#dfb471;border-color:#dfb471;transform:none}
+.heritage-home .decant-editorial-visual>span{background:#17120db8;color:#f4e8d5;padding:6px 8px;border-radius:3px;line-height:1.5}
+html[data-theme="light"] .heritage-home .decant-editorial-visual>span{color:#f4e8d5}
+html[data-theme="light"] .heritage-home .decant-size-markers b{color:#f4e8d5}
+html[data-theme="light"] .heritage-home .decant-size-markers b.active{color:#17120d}
+.heritage-header .bag b{right:auto;inset-inline-end:0;padding:0;line-height:1;font-variant-numeric:tabular-nums}
+.heritage-pagination{flex-wrap:wrap;row-gap:12px}
+.heritage-pagination button{min-height:40px;display:grid;place-items:center;line-height:1.2}
+.market-app :is(.m-grid,.m-stack)>*,.market-app .m-intro>div{min-width:0}
+.market-app :is(h1,h2,h3){overflow-wrap:anywhere}
+.market-app .m-button{text-align:center;line-height:1.5;min-width:0}
+.market-app .m-check input,.heritage-account-choice input{margin:0;flex-shrink:0}
+.market-app :is(.m-metric,.m-total,.m-number){font-variant-numeric:tabular-nums}
+.market-app .m-table :is(td,th){overflow-wrap:anywhere}
+.heritage-detail-actions{flex-wrap:wrap;gap:12px 24px}
+.heritage-card{display:flex;flex-direction:column;height:100%;min-width:0}
+.heritage-card .product-art{flex-shrink:0}
+.heritage-card .product-meta{display:flex;flex:1;flex-direction:column;align-items:stretch;min-width:0}
+.heritage-card .product-meta h3{line-height:1.1;overflow-wrap:anywhere}
+.heritage-card .product-meta>strong{margin-top:auto;padding-top:10px;font-variant-numeric:tabular-nums}
+.market-app .m-grid>div:has(>.heritage-card){display:flex;flex-direction:column;gap:12px}
+.market-app .m-grid>div>.heritage-card{height:auto;flex:1}
+html[dir="rtl"] .heritage-services .m-intro h1{line-height:1.35;letter-spacing:0}
+@media(max-width:700px){
+ html[dir="rtl"] .heritage-home .nocturne-hero-image img{padding:20px 17vw 260px;object-position:50% 12%}
+ .heritage-home .decant-format-value{font-size:22px}
+}

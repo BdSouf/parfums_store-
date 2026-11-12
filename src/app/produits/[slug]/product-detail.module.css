@@ -30,6 +30,13 @@
 
 .routeState{min-height:65vh;padding:90px 6vw;color:#e9d7bb;font-size:13px;line-height:1.9}.routeState h1{font:400 clamp(40px,5vw,68px)/1 var(--font-display);max-width:700px}.routeState p{color:#b9a88d;margin-bottom:28px}
 
+/* Keep price labels inside the format cards on narrow phones. */
+.formatPrice{font-variant-numeric:tabular-nums}
+.quantity>span{display:grid;place-items:center;min-width:24px;text-align:center;line-height:1}
+:global(html[dir="rtl"]) .addButton b{margin-left:0;margin-inline-start:auto}
+:global(html[dir="rtl"]) .galleryBottom>span:last-child{text-align:start}
+@media(max-width:600px){.formatGrid{grid-template-columns:repeat(2,minmax(0,1fr))}.format{min-height:104px;padding:14px}.formatKind{font-size:9px}.formatPrice{font-size:10px}.mobileBar>div{min-width:0}.mobileBar strong{font-size:clamp(14px,4.5vw,18px)}.mobileAction{min-width:0;flex-shrink:0}}
+
 /* Mode clair — fiche produit, sans modifier le thème nocturne existant. */
 :global(html[data-theme="light"]) .page{--pd-gold:#a96b20;--pd-muted:#6f6256;--pd-line:#8e65382b;background:radial-gradient(circle at 86% 4%,#e2b77835,transparent 22%),linear-gradient(180deg,#fffaf4 0%,#f7eee4 56%,#fbf6ef 100%);color:#18130f}
 :global(html[data-theme="light"]) .breadcrumb{color:#75685c}
