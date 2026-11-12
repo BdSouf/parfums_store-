@@ -1,9 +1,9 @@
-export type Variant={id:string;label:string;price:number;stock:number;kind:"bottle"|"decant"};
-export type Product={id:string;slug:string;name:string;brand:string;category:string;description:string;notes:string[];badge?:string;featured?:boolean;archived?:boolean;image:string;accent:string;variants:Variant[]};
+export type Variant={id:string;label:string;price:number;stock:number;kind:"bottle"|"decant";volumeMl?:number;referencePrice?:number;saleStart?:string;saleEnd?:string};
+export type Product={id:string;slug:string;name:string;brand:string;category:string;description:string;notes:string[];badge?:string;featured?:boolean;archived?:boolean;image:string;accent:string;variants:Variant[];nameAr?:string;descriptionAr?:string;notesAr?:string[];profile?:string;family?:string;concentration?:string;publishedAt?:string;images?:string[];fictional?:boolean;season?:string;sources?:string[];pyramid?:{top:string[];heart:string[];base:string[]}};
 
 export const categories=["Tous","Grandes marques","Parfums de niche","Parfums arabes","Décants"];
-export const decantFormats=[5,10,20] as const;
-const demoDecants=(productId:string,bottlePrice:number,bottleVolume:number):Variant[]=>decantFormats.map((volume,index)=>({id:`${productId}-d${volume}`,label:`${volume} ml`,price:Math.ceil(((bottlePrice/bottleVolume)*volume*1.35+15)/10)*10,stock:index===0?12:index===1?8:5,kind:"decant"}));
+export const decantFormats=[2,5,10,20] as const;
+const demoDecants=(productId:string,bottlePrice:number,bottleVolume:number):Variant[]=>[5,10,20].map((volume,index)=>({id:`${productId}-d${volume}`,label:`${volume} ml`,price:Math.ceil(((bottlePrice/bottleVolume)*volume*1.35+15)/10)*10,stock:index===0?12:index===1?8:5,kind:"decant"}));
 
 export const products:Product[]=[
   {id:"p1",slug:"dior-sauvage-edp",name:"Sauvage Eau de Parfum",brand:"Dior",category:"Grandes marques",description:"Une signature fraîche et ambrée portée par la bergamote et une vanille enveloppante.",notes:["Bergamote","Vanille","Bois ambrés"],badge:"Iconique",featured:true,image:"/products/catalog/dior-sauvage-cutout.png",accent:"#17273b",variants:[{id:"p1-100",label:"100 ml",price:1690,stock:5,kind:"bottle"},...demoDecants("p1",1690,100)]},
@@ -23,7 +23,8 @@ export const products:Product[]=[
 ];
 
 export const money=(n:number)=>new Intl.NumberFormat("fr-MA",{style:"currency",currency:"MAD",minimumFractionDigits:0,maximumFractionDigits:2}).format(n);
-export const variantVolumeMl=(variant:Variant)=>{const match=variant.label.match(/(?:^|[^\d])(\d+)\s*ml\b/i);return match?Number(match[1]):null};
+export const unitPrice=(variant:Variant,day=new Date().toISOString().slice(0,10))=>variant.referencePrice&&variant.saleStart&&variant.saleEnd&&(day<variant.saleStart.slice(0,10)||day>variant.saleEnd.slice(0,10))?variant.referencePrice:variant.price;
+export const variantVolumeMl=(variant:Variant)=>{if(variant.volumeMl!==undefined)return variant.volumeMl;const match=variant.label.match(/(?:^|[^\d])(\d+)\s*ml\b/i);return match?Number(match[1]):null};
 export const isDecantVariant=(variant:Variant,format?:number)=>{const volume=variantVolumeMl(variant);return variant.kind==="decant"&&volume!==null&&decantFormats.includes(volume as (typeof decantFormats)[number])&&(format===undefined||volume===format)};
 export const isBottleVariant=(variant:Variant)=>variant.kind==="bottle";
 export const findVariant=(id:string)=>{for(const p of products){const v=p.variants.find(x=>x.id===id);if(v)return{product:p,variant:v}}};
