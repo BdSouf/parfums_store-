@@ -128,3 +128,51 @@
 @media (prefers-reduced-motion: reduce) {
   .page * { transition: none !important; scroll-behavior: auto !important; }.primary:hover, .thumbnail:hover img { transform: none; }
 }
+
+/* Mode clair — panier. */
+:global(html[data-theme="light"]) .page {
+  --cart-gold: #a96b20;
+  --cart-muted: #6f6256;
+  --cart-line: #8e65382b;
+  background: radial-gradient(ellipse at 90% 8%, #dfb47635, transparent 40%), linear-gradient(180deg, #fffaf4, #f7eee4 62%, #fbf6ef);
+  color: #18130f;
+}
+:global(html[data-theme="light"]) .breadcrumb > span { color: #30251c; }
+:global(html[data-theme="light"]) .steps li { color: #796b5d; }
+:global(html[data-theme="light"]) .steps li + li::before { background: #845d3428; }
+:global(html[data-theme="light"]) .steps li > span { border-color: #895f3438; background: #fffaf37a; }
+:global(html[data-theme="light"]) .steps li[aria-current] { color: #8f5818; }
+:global(html[data-theme="light"]) .steps li[aria-current] > span { border-color: #bd8138; background: #d9a45522; color: #8d5617; }
+:global(html[data-theme="light"]) .listHeading h2 > span { color: #965d1a; border-color: #a66f303f; background: #fffaf375; }
+:global(html[data-theme="light"]) .thumbnail { border-color: #a06f383c; background: radial-gradient(ellipse at 50% 35%, #fffdf7, color-mix(in srgb, var(--item-accent) 15%, #ead6bd) 57%, #caa77d); }
+:global(html[data-theme="light"]) .thumbnail img { filter: drop-shadow(0 12px 8px #60401f4d) saturate(.94); }
+:global(html[data-theme="light"]) .productInfo > a:hover { color: #8f5818; }
+:global(html[data-theme="light"]) .variant { color: #685b4e; }
+:global(html[data-theme="light"]) .variant > span:first-child { border-color: #a66f3040; background: #fffaf387; color: #8e5819; }
+:global(html[data-theme="light"]) .unitPrice { color: #776a5d; }
+:global(html[data-theme="light"]) .lineActions > strong { color: #8e5718; }
+:global(html[data-theme="light"]) .quantity { border-color: #8d643639; background: #fffaf3; }
+:global(html[data-theme="light"]) .quantity button { color: #2a2018; }
+:global(html[data-theme="light"]) .quantity button:not(:disabled):hover { color: #8d5718; background: #c68b3b12; }
+:global(html[data-theme="light"]) .remove { color: #796a5c; }
+:global(html[data-theme="light"]) .remove:hover { color: #9e463e; }
+:global(html[data-theme="light"]) .stockWarning,:global(html[data-theme="light"]) .checkoutWarning { border-color: #b477304a; background: #db9e3c14; color: #7f501d; }
+:global(html[data-theme="light"]) .stockWarning button { color: #804d16; }
+:global(html[data-theme="light"]) .summary { border-color: #a9743b46; background: radial-gradient(ellipse at 100% 0, #dab27445, transparent 60%), linear-gradient(150deg, #fffaf3, #ecdbc6); box-shadow: 0 22px 60px #68451f1f; }
+:global(html[data-theme="light"]) .breakdown dt { color: #594d42; }
+:global(html[data-theme="light"]) .breakdown dt > span,:global(html[data-theme="light"]) .breakdown .pending { color: #786b5f; }
+:global(html[data-theme="light"]) .total small,:global(html[data-theme="light"]) .nextStep,:global(html[data-theme="light"]) .demo { color: #736659; }
+:global(html[data-theme="light"]) .total output { color: #8e5718; }
+:global(html[data-theme="light"]) .demo > span { color: #8d5c21; }
+:global(html[data-theme="light"]) .undoNotice { border-color: #a8743a3d; background: #f0dfca; }
+:global(html[data-theme="light"]) .undoNotice p { color: #4f4439; }
+:global(html[data-theme="light"]) .undoNotice p > svg,:global(html[data-theme="light"]) .undoNotice > button { color: #8e5819; }
+:global(html[data-theme="light"]) .empty { border-color: #a3713b36; background: #fffaf3; box-shadow: 0 24px 65px #6b481d19; }
+:global(html[data-theme="light"]) .emptyCopy { background: radial-gradient(ellipse at 100% 50%, #d3a66c38, transparent 70%); }
+:global(html[data-theme="light"]) .bagIcon { border-color: #a66f3052; color: #9e621d; background: #d1a15c12; }
+:global(html[data-theme="light"]) .emptyArt { background: #ead8c1; }
+:global(html[data-theme="light"]) .emptyArt:after { background: linear-gradient(90deg, #fffaf380, transparent 40%), linear-gradient(0deg, #6d451f52, transparent 45%); }
+:global(html[data-theme="light"]) .emptyArt img { filter: saturate(.82) brightness(1.03); }
+:global(html[data-theme="light"]) .emptyArt > span,:global(html[data-theme="light"]) .emptyArt > small { color: #5e4328; }
+:global(html[data-theme="light"]) .loading { color: #956020; }
+:global(html[data-theme="light"]) .loading > div { background: linear-gradient(120deg, #fffaf3, #d7a55d1f, #fffaf3); }

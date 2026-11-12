@@ -2,10 +2,10 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowRight, ChevronLeft, ChevronRight } from "lucide-react";
+import { ArrowRight, ChevronLeft, ChevronRight, Layers3, MoonStar, Sparkles } from "lucide-react";
 import { motion, useReducedMotion } from "motion/react";
 import { useState } from "react";
-import { decantFormats, isDecantVariant } from "@/lib/data";
+import { decantFormats, isBottleVariant, isDecantVariant, money, type Product } from "@/lib/data";
 
 import { useStore } from "@/lib/store";
 
@@ -15,12 +15,64 @@ const universes = [
   { title: "Parfums arabes", label: "Tendances du moment", image: "/products/catalog/lattafa-khamrah-cutout.png", href: "/produits?category=Parfums%20arabes" },
 ];
 
+const packDefinitions = [
+  {
+    id: "discovery",
+    label: "Découverte",
+    title: "Pack Découverte Décant",
+    description: "Trois signatures en format 10 ml pour explorer, comparer et trouver votre prochain parfum.",
+    slugs: ["dior-sauvage-edp", "xerjoff-naxos", "lattafa-khamrah"],
+    kind: "decant" as const,
+    href: "/produits?format=10",
+  },
+  {
+    id: "icons",
+    label: "Flacons complets",
+    title: "Pack Icônes en flacon",
+    description: "Trois maisons incontournables réunies dans une sélection élégante et contrastée.",
+    slugs: ["bleu-de-chanel-edp", "xerjoff-naxos", "armani-stronger-with-you-intensely"],
+    kind: "bottle" as const,
+    href: "/produits?type=bottle",
+  },
+  {
+    id: "arabic",
+    label: "Sélection arabe",
+    title: "Pack Signature Arabe",
+    description: "Une sélection chaleureuse et puissante parmi les signatures arabes du moment.",
+    slugs: ["lattafa-khamrah", "afnan-9pm", "armaf-club-de-nuit-intense-man"],
+    kind: "bottle" as const,
+    href: "/produits?category=Parfums%20arabes",
+  },
+];
+
+const packIcon = (id: string) => id === "discovery" ? <Sparkles /> : id === "icons" ? <Layers3 /> : <MoonStar />;
+
+function resolvePackProducts(products: Product[], slugs: readonly string[]) {
+  return slugs.flatMap((slug) => {
+    const product = products.find((item) => item.slug === slug);
+    return product ? [product] : [];
+  });
+}
+
 export default function Home() {
   const reduce = useReducedMotion();
   const { products: allProducts } = useStore();
   const products = allProducts.filter(product => !product.archived);
   const [decantFormat, setDecantFormat] = useState<number>(10);
   const decantCount = products.filter((product) => product.variants.some((variant) => isDecantVariant(variant, decantFormat) && variant.stock > 0)).length;
+  const packs = packDefinitions.map((definition) => {
+    const items = resolvePackProducts(products, definition.slugs);
+    const variants = items.flatMap((product) => {
+      const variant = product.variants.find((item) => definition.kind === "decant" ? isDecantVariant(item, 10) : isBottleVariant(item));
+      return variant ? [variant] : [];
+    });
+    return {
+      ...definition,
+      items,
+      price: variants.reduce((total, variant) => total + variant.price, 0),
+      ready: items.length === definition.slugs.length && variants.length === definition.slugs.length && variants.every((variant) => variant.stock > 0),
+    };
+  });
   return <main className="nocturne-home">
     <section className="nocturne-hero">
       <motion.div className="nocturne-hero-image" initial={reduce ? false : { opacity: 0, scale: 1.06 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 1.1, ease: [.22, 1, .36, 1] }}>
@@ -57,8 +109,7 @@ export default function Home() {
         <Link className="nocturne-cta decant-cta" href="/produits?type=bottle">Explorer les parfums <ArrowRight /></Link>
       </motion.div>
       <motion.div className="decant-editorial-visual bottle-editorial-visual" initial={reduce ? false : { opacity: 0, scale: .97 }} whileInView={{ opacity: 1, scale: 1 }} viewport={{ once: true }} transition={{ duration: reduce ? 0 : .75, delay: .12 }}>
-        <Image src="/images/full-bottles-studio-demo.png" alt="Composition de démonstration de trois flacons de parfum sans marque" fill sizes="(max-width: 800px) 100vw, 55vw" />
-        <span>VISUEL DE DÉMONSTRATION</span>
+        <Image src="/images/full-bottles-studio-web-v3.png" alt="Creed Aventus, Baccarat Rouge 540 et Tom Ford Oud Wood réunis dans une composition studio" fill sizes="(max-width: 800px) 100vw, 64vw" />
       </motion.div>
     </motion.section>
 
@@ -81,6 +132,39 @@ export default function Home() {
         <span>VISUEL DE DÉMONSTRATION</span>
         <div className="decant-size-markers" aria-hidden="true"><b className={decantFormat === 5 ? "active" : ""}>5 ml</b><b className={decantFormat === 10 ? "active" : ""}>10 ml</b><b className={decantFormat === 20 ? "active" : ""}>20 ml</b></div>
       </motion.div>
+    </motion.section>
+
+    <motion.section id="packs" className="pack-showcase" initial={reduce ? false : { opacity: 0, y: 34 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: .12 }} transition={{ duration: reduce ? 0 : .65, ease: [.22, 1, .36, 1] }}>
+      <header className="pack-showcase-heading">
+        <div>
+          <span className="nocturne-kicker">LA SÉLECTION LA7YA</span>
+          <h2>Nos sélections <i>La7ya.</i></h2>
+          <p>Des compositions pensées pour découvrir, collectionner ou offrir des parfums d&apos;exception.</p>
+        </div>
+        <Link href="/produits" className="pack-all-link">Explorer le catalogue <ArrowRight /></Link>
+      </header>
+
+      <div className="pack-grid">
+        {packs.map((pack, index) => <motion.article className={`pack-card pack-card-${pack.id}`} key={pack.id} initial={reduce ? false : { opacity: 0, y: 28 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: .25 }} transition={{ duration: reduce ? 0 : .55, delay: index * .08 }}>
+          <div className="pack-card-visual">
+            <span className="pack-card-label">{packIcon(pack.id)} {pack.label}</span>
+            {pack.id === "discovery" ? <Image className="pack-decant-visual" src="/images/decants-studio-demo.png" alt="Atomiseurs de parfum en formats decant" fill sizes="(max-width: 900px) 80vw, 31vw" /> : <div className="pack-products" aria-label={pack.items.map((item) => `${item.brand} ${item.name}`).join(", ")}>
+              {pack.items.map((item) => <span className="pack-product" key={item.id}><Image src={item.image} alt="" fill sizes="(max-width: 900px) 24vw, 10vw" /></span>)}
+            </div>}
+            <div className="pack-card-glow" />
+          </div>
+          <div className="pack-card-body">
+            <span className="pack-count">{pack.items.length} références {pack.kind === "decant" ? "· 10 ml" : "· flacons complets"}</span>
+            <h3>{pack.title}</h3>
+            <p>{pack.description}</p>
+            <div className="pack-card-bottom">
+              <div><small>Valeur de la sélection</small><strong>{pack.ready ? money(pack.price) : "À composer"}</strong></div>
+              <Link href={pack.href} aria-label={`Composer ${pack.title}`}>Composer le pack <ArrowRight /></Link>
+            </div>
+          </div>
+        </motion.article>)}
+      </div>
+      <p className="pack-footnote">Les montants sont calculés depuis les prix et formats actuellement disponibles dans le catalogue. Aucun stock distinct n&apos;est créé pour ces sélections.</p>
     </motion.section>
 
     <section className="nocturne-story">

@@ -7,6 +7,7 @@ import { categories, variantVolumeMl, type Product, type Variant } from "@/lib/d
 import { productError, uniqueProductSlug } from "@/lib/catalog";
 import { useStore } from "@/lib/store";
 import styles from "./product-editor.module.css";
+import "./product-editor-light.css";
 
 type DraftVariant = { id: string; kind: Variant["kind"]; volume: string; price: string; stock: string };
 export function ProductEditor({ product, onClose, onSaved }: { product: Product | null; onClose: () => void; onSaved: (name: string) => void }) {
@@ -70,7 +71,7 @@ export function ProductEditor({ product, onClose, onSaved }: { product: Product 
     if (issue) { setError(issue); return; }
     onSaved(next.name);
   }
-  return <dialog ref={dialog} className={styles.dialog} aria-labelledby="product-editor-title" onCancel={event => { event.preventDefault(); close(); }}><form onSubmit={submit}>
+  return <dialog data-admin-editor ref={dialog} className={styles.dialog} aria-labelledby="product-editor-title" onCancel={event => { event.preventDefault(); close(); }}><form onSubmit={submit}>
     <header className={styles.header}><span>LE CATALOGUE LA7YA</span><h2 id="product-editor-title">{product ? "Modifier le parfum." : "Ajouter un parfum."}</h2><p>Choisissez un univers, puis les formats que vous souhaitez proposer.</p></header>
     <div className={styles.body}>
       <fieldset><legend>01 <span>Le parfum</span></legend><div className={styles.grid}>

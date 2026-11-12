@@ -101,3 +101,51 @@
 }
 @media (max-width: 360px) { .steps { gap: 6px; }.steps li { font-size: 7px; }.steps li + li::before { display: none; }.heading h1 { font-size: 46px; }.total { flex-wrap: wrap; gap: 15px; }.total strong { margin-left: auto; }.receiptHeading h2 { font-size: 29px; }.product h3 { font-size: 23px; } }
 @media (prefers-reduced-motion: reduce) { .page * { transition: none !important; scroll-behavior: auto !important; }.primary:hover { transform: none; } }
+
+/* Mode clair — confirmation de commande. */
+:global(html[data-theme="light"]) .page {
+  --confirmation-gold: #a96b20;
+  --confirmation-muted: #6f6256;
+  --confirmation-line: #8e65382b;
+  color: #18130f;
+  background: radial-gradient(ellipse at 50% 4%, #dfb47638, transparent 42%), linear-gradient(180deg, #fffaf4, #f7eee4 62%, #fbf6ef);
+}
+:global(html[data-theme="light"]) .steps li { color: #746658; }
+:global(html[data-theme="light"]) .steps li > span { border-color: #a16d344f; color: #925b19; background: #fffaf37d; }
+:global(html[data-theme="light"]) .steps li + li::before { background: #a16d3440; }
+:global(html[data-theme="light"]) .steps li[aria-current] { color: #8c5617; }
+:global(html[data-theme="light"]) .steps li[aria-current] > span { background: #d3a26025; border-color: #b8792e; }
+:global(html[data-theme="light"]) .successIcon { border-color: #ad742f75; color: #8e5718; background: radial-gradient(ellipse at 35% 20%, #d3a26035, #fffaf359); box-shadow: 0 0 55px #a66b2517; }
+:global(html[data-theme="light"]) .successIcon::before { border-color: #a46c2828; }
+:global(html[data-theme="light"]) .heading > p { color: #4f443a; }
+:global(html[data-theme="light"]) .heading > p > span { color: #716458; }
+:global(html[data-theme="light"]) .receipt { border-color: #a8733947; background: linear-gradient(145deg, #fffaf3, #ead9c4); box-shadow: 0 20px 60px #68451f1e; }
+:global(html[data-theme="light"]) .receiptHeader { border-color: #9f6b3446; }
+:global(html[data-theme="light"]) .kicker { color: #8e5a1e; }
+:global(html[data-theme="light"]) .reference { color: #744817; }
+:global(html[data-theme="light"]) .status { color: #76501e; border-color: #a36e343e; background: #d3a26016; }
+:global(html[data-theme="light"]) .status > small { color: #7d674b; border-color: #a36e3440; }
+:global(html[data-theme="light"]) .cancelled { color: #a3453c; border-color: #b4584b48; background: #bd645110; }
+:global(html[data-theme="light"]) .receiptHeading > span { color: #746659; }
+:global(html[data-theme="light"]) .thumbnail { border-color: #9c6d3738; color: #97601f; background: radial-gradient(ellipse at 50% 35%, #fffdf7, #d6b58d 70%, #bd9365); }
+:global(html[data-theme="light"]) .thumbnail img { filter: drop-shadow(0 10px 6px #61411f42) saturate(.94); }
+:global(html[data-theme="light"]) .product > small { color: #925b19; }
+:global(html[data-theme="light"]) .product p { color: #6d6053; }
+:global(html[data-theme="light"]) .quantity { color: #644a2e; border-color: #8b623539; background: #fffaf375; }
+:global(html[data-theme="light"]) .total { background: #b67b3210; }
+:global(html[data-theme="light"]) .total::before,:global(html[data-theme="light"]) .total::after { border-color: #9a673c40; background: #f8efe4; }
+:global(html[data-theme="light"]) .total small { color: #716356; }
+:global(html[data-theme="light"]) .total strong { color: #8d5718; }
+:global(html[data-theme="light"]) .receiptFoot { border-color: #8f66342b; color: #79664f; }
+:global(html[data-theme="light"]) .details { border-color: #956a3a32; background: linear-gradient(135deg, #fffaf3, #ead9c4); box-shadow: 0 18px 48px #68451f14; }
+:global(html[data-theme="light"]) .detailTitle > svg { color: #9d621d; }
+:global(html[data-theme="light"]) .address p { color: #64584c; }
+:global(html[data-theme="light"]) .address > small { color: #736558; }
+:global(html[data-theme="light"]) .contact p > span { color: #6d6053; }
+:global(html[data-theme="light"]) .demoNote > span { color: #89571e; }
+:global(html[data-theme="light"]) .demoNote p { color: #706356; }
+:global(html[data-theme="light"]) .loading { color: #9a611e; }
+:global(html[data-theme="light"]) .loading p { color: #716458; }
+:global(html[data-theme="light"]) .helpIcon { border-color: #a66f3048; color: #95601f; background: #d3a26012; }
+:global(html[data-theme="light"]) .unavailable > p { color: #65594d; }
+:global(html[data-theme="light"]) .unavailable > .unavailableHint { color: #786a5d; }
