@@ -1,0 +1,39 @@
+html[data-theme="light"] dialog[data-admin-editor] {
+  border-color: #a8743a65;
+  background: #fffaf3;
+  color: #211810;
+  box-shadow: 0 35px 100px #3e281652;
+  color-scheme: light;
+}
+html[data-theme="light"] dialog[data-admin-editor]::backdrop { background: #3b281a8f; }
+html[data-theme="light"] dialog[data-admin-editor] header { border-color: #8e653826; }
+html[data-theme="light"] dialog[data-admin-editor] header > span,
+html[data-theme="light"] dialog[data-admin-editor] legend { color: #8e591c; }
+html[data-theme="light"] dialog[data-admin-editor] header p { color: #6f6256; }
+html[data-theme="light"] dialog[data-admin-editor] form > div { scrollbar-color: #a77841 #eadbc9; }
+html[data-theme="light"] dialog[data-admin-editor] legend > span { color: #2a2018; }
+html[data-theme="light"] dialog[data-admin-editor] label { color: #44382e; }
+html[data-theme="light"] dialog[data-admin-editor] :is(input:not([type="color"]), select, textarea) {
+  border-color: #8d643638;
+  background: #fffdf9;
+  color: #211810;
+}
+html[data-theme="light"] dialog[data-admin-editor] :is(input, textarea)::placeholder { color: #847563; }
+html[data-theme="light"] dialog[data-admin-editor] small,
+html[data-theme="light"] dialog[data-admin-editor] fieldset > p { color: #746659; }
+html[data-theme="light"] dialog[data-admin-editor] input[type="color"] { border-color: #8d643638; }
+html[data-theme="light"] dialog[data-admin-editor] fieldset > div > div {
+  border-color: #8e65382b;
+}
+html[data-theme="light"] dialog[data-admin-editor] fieldset button { color: #875318; border-color: #a66f3048; }
+html[data-theme="light"] dialog[data-admin-editor] p[role="alert"] {
+  border-color: #b9634852;
+  background: #c8753b12;
+  color: #963f31;
+}
+html[data-theme="light"] dialog[data-admin-editor] form > footer {
+  border-color: #8e653826;
+  background: #f2e4d2;
+}
+html[data-theme="light"] dialog[data-admin-editor] form > footer button { border-color: #8d643638; color: #4e4135; }
+html[data-theme="light"] dialog[data-admin-editor] form > footer button[type="submit"] { color: #1a130b; }

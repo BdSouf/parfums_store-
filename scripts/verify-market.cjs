@@ -112,4 +112,43 @@ check('late route hydration keeps its own server loading markup after store rest
   assert(ReactServer.renderToString(React.createElement(Hydrated,null,React.createElement('section',{className:'nocturne-hero'}))).includes('nocturne-hero'));
  }
 });
+check('merged theme initializes light, respects a saved theme and survives blocked storage',()=>{
+ const vm=require('node:vm');
+ const source=fs.readFileSync(path.join(root,'src/app/layout.tsx'),'utf8');
+ const script=source.match(/const themeScript=`([^`]+)`;/)[1];
+ for(const saved of [null,'light','dark','invalid']){
+  const document={documentElement:{dataset:{},style:{}}};
+  vm.runInNewContext(script,{document,localStorage:{getItem:()=>saved}});
+  assert.equal(document.documentElement.dataset.theme,saved==='dark'?'dark':'light');
+  assert.equal(document.documentElement.style.colorScheme,saved==='dark'?'dark':'light');
+ }
+ const document={documentElement:{dataset:{},style:{}}};
+ vm.runInNewContext(script,{document,localStorage:{getItem(){throw Error('blocked');}}});
+ assert.equal(document.documentElement.dataset.theme,'light');
+});
+check('theme toggle is translated, hydrates deterministically and works without persistence',()=>{
+ const {ThemeToggle}=uiLoad('src/components/theme-toggle.tsx');
+ for(const lang of ['fr','ar']){
+  query=new URLSearchParams({lang});
+  const html=renderToStaticMarkup(React.createElement(MarketProvider,null,React.createElement(ThemeToggle)));
+  assert(html.includes(lang==='fr'?'Activer le mode sombre':'تفعيل الوضع الداكن'));
+ }
+ const originalDocument=globalThis.document,originalStorage=globalThis.localStorage;
+ try{
+  globalThis.document={documentElement:{dataset:{theme:'light'},style:{}}};
+  globalThis.localStorage={setItem(){throw Error('blocked');}};
+  const {ThemeToggle:Live}=loader({react:{...React,useSyncExternalStore:(_s,get)=>get()},'./market-context':{useMarket:()=>({t:(fr)=>fr})}})('src/components/theme-toggle.tsx');
+  Live().props.onClick();assert.equal(document.documentElement.dataset.theme,'dark');
+  Live().props.onClick();assert.equal(document.documentElement.dataset.theme,'light');
+ }finally{globalThis.document=originalDocument;globalThis.localStorage=originalStorage;}
+});
+check('merged storefront shell and incoming editorial selections render in both languages',()=>{
+ const {MarketShell}=uiLoad('src/components/market-shell.tsx');
+ for(const lang of ['fr','ar']){
+  query=new URLSearchParams({lang});demoState=E.seed();
+  const html=renderToStaticMarkup(React.createElement(MarketProvider,null,React.createElement(MarketShell,null,React.createElement('section',null,'Catalogue'))));
+  assert(html.includes('storefront-shell'));assert(html.includes('theme-toggle'));assert(html.includes('Catalogue'));
+  const home=markup('HomeView');assert(home.includes('pack-showcase'));assert(home.includes('/images/full-bottles-studio-web-v3.png'));assert(home.includes('type=decant'));
+ }
+});
 console.log(`${count} vérifications réussies.`);

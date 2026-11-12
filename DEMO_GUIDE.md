@@ -9,6 +9,8 @@ La démonstration est autonome par navigateur **et par origine** : changer de po
 
 Le design de référence précédent est conservé : accueil clair-obscur, cartes d’univers superposées, sections flacons/décants, fiches avec galerie en arche, panier et commande éditoriaux, administration à barre latérale. Les nouveaux services sont accessibles depuis le menu et le pied de page ; les nouveaux filtres et avantages sont intégrés sans remplacer ces présentations.
 
+Le thème clair ivoire et doré de la mise à jour `ea47ed7` est désormais le thème initial, étendu aux services du MVP et à l’administration. La préférence clair/sombre est mémorisée sous `la7ya-theme`, séparément des données de démonstration. Le bouton soleil/lune est dans le header, le parcours d’achat et l’administration ; sur mobile, celui de la boutique est dans le menu. Une préférence sombre déjà enregistrée est conservée. Le visuel flacons et les sélections éditoriales de cette mise à jour sont intégrés avec leurs textes FR/AR. Ces sélections ne remplacent pas les coffrets de trois décants de 5 ml.
+
 ## Accès de test
 
 | Usage | Accès |
@@ -80,7 +82,7 @@ node_modules/.bin/next build
 
 Le script vérifie le moteur métier, les migrations, la persistance simulée et le rendu React des pages FR/AR. Les données du navigateur ne sont pas modifiées par ces tests.
 
-La compilation, les types et les contrôles automatisés ne remplacent pas une vérification visuelle : terminer les parcours au clavier et les inspections à 360, 390, 768 et 1 440 px avant présentation finale. Lors de cette session, l’accès automatisé au navigateur n’a pas abouti ; ces tailles ne sont donc pas déclarées visuellement validées.
+La compilation, les types et les contrôles automatisés ne remplacent pas une vérification visuelle : terminer les parcours au clavier et les inspections à 360, 390, 768 et 1 440 px avant présentation finale. Après intégration du thème clair, l’accueil, le catalogue arabe, l’espace client et l’administration ont été inspectés dans Brave sur grand écran ; des vues étroites de l’accueil, de l’administration et du parcours d’achat vide ont aussi été contrôlées. Cela ne constitue pas une validation complète de toutes les pages aux quatre tailles demandées.
 
 ## Intégrations reportées
 

@@ -7,6 +7,7 @@ import { useState } from 'react';
 import { decantFormats, isDecantVariant } from '@/lib/data';
 import { useStore } from '@/lib/store';
 import { MLink, useMarket } from './market-context';
+import { HeritageSelections } from './heritage-selections';
 
 // Keep the original homepage composition and its original globals.css selectors.
 export function HeritageHome() {
@@ -55,7 +56,7 @@ export function HeritageHome() {
     <MLink className="nocturne-cta decant-cta" href="/produits?type=bottle">{t('Explorer les parfums', 'استكشف العطور')} <ArrowRight /></MLink>
    </motion.div>
    <motion.div className="decant-editorial-visual bottle-editorial-visual" initial={reduce ? false : { opacity: 0, scale: .97 }} whileInView={{ opacity: 1, scale: 1 }} viewport={{ once: true }} transition={{ duration: reduce ? 0 : .75, delay: .12 }}>
-    <Image src="/images/full-bottles-studio-demo.png" alt={t('Composition de démonstration de trois flacons sans marque', 'صورة تجريبية لثلاث زجاجات دون ماركة')} fill sizes="(max-width:800px) 100vw, 55vw" /><span>{t('VISUEL DE DÉMONSTRATION', 'صورة تجريبية')}</span>
+    <Image src="/images/full-bottles-studio-web-v3.png" alt={t('Composition studio : Creed Aventus, Baccarat Rouge 540 et Tom Ford Oud Wood', 'صورة تجمع Creed Aventus وBaccarat Rouge 540 وTom Ford Oud Wood')} fill sizes="(max-width:800px) 100vw, 64vw" />
    </motion.div>
   </motion.section>
   <motion.section id="decants" className="decant-editorial" initial={reduce ? false : { opacity: 0, y: 32 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: .18 }} transition={{ duration: reduce ? 0 : .65, ease: [.22, 1, .36, 1] }}>
@@ -65,6 +66,6 @@ export function HeritageHome() {
    </div>
    <motion.div className="decant-editorial-visual" initial={reduce ? false : { opacity: 0, scale: .97 }} whileInView={{ opacity: 1, scale: 1 }} viewport={{ once: true }} transition={{ duration: reduce ? 0 : .75, delay: .1 }}><Image src="/images/decants-studio-demo.png" alt={t('Visuel de démonstration de trois atomiseurs', 'صورة تجريبية لثلاثة بخاخات')} fill sizes="(max-width:800px) 100vw, 55vw" /><span>{t('VISUEL DE DÉMONSTRATION', 'صورة تجريبية')}</span><div className="decant-size-markers" aria-hidden="true">{[5, 10, 20].map(v => <b key={v} className={format === v ? 'active' : ''}>{v} ml</b>)}</div></motion.div>
   </motion.section>
-  <section className="nocturne-story"><Image src="/products/catalog/amouage-interlude-cutout.png" alt="Interlude Man · Amouage" fill sizes="(max-width:700px) 100vw, 52vw" /><div className="nocturne-story-shade" /><div><span className="nocturne-kicker">{t('LE RITUEL LA7YA', 'طقوس La7ya')}</span><h2>{t('Choisir une présence,', 'اختر حضوراً،')}<br />{t('pas seulement un parfum.', 'أكثر من مجرد عطر.')}</h2><p>{t('Découvrez les formats disponibles, comparez les univers et préparez votre commande en quelques gestes.', 'اكتشف الأحجام المتاحة وقارن الخيارات وجهّز طلبك بخطوات بسيطة.')}</p><MLink href="/produits" className="nocturne-cta">{t('Commencer', 'ابدأ')} <ArrowRight /></MLink></div></section>
+  <HeritageSelections /><section className="nocturne-story"><Image src="/products/catalog/amouage-interlude-cutout.png" alt="Interlude Man · Amouage" fill sizes="(max-width:700px) 100vw, 52vw" /><div className="nocturne-story-shade" /><div><span className="nocturne-kicker">{t('LE RITUEL LA7YA', 'طقوس La7ya')}</span><h2>{t('Choisir une présence,', 'اختر حضوراً،')}<br />{t('pas seulement un parfum.', 'أكثر من مجرد عطر.')}</h2><p>{t('Découvrez les formats disponibles, comparez les univers et préparez votre commande en quelques gestes.', 'اكتشف الأحجام المتاحة وقارن الخيارات وجهّز طلبك بخطوات بسيطة.')}</p><MLink href="/produits" className="nocturne-cta">{t('Commencer', 'ابدأ')} <ArrowRight /></MLink></div></section>
  </div>;
 }
