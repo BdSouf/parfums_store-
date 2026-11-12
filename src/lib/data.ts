@@ -1,5 +1,5 @@
 export type Variant={id:string;label:string;price:number;stock:number;kind:"bottle"|"decant"};
-export type Product={id:string;slug:string;name:string;brand:string;category:string;description:string;notes:string[];badge?:string;featured?:boolean;image:string;accent:string;variants:Variant[]};
+export type Product={id:string;slug:string;name:string;brand:string;category:string;description:string;notes:string[];badge?:string;featured?:boolean;archived?:boolean;image:string;accent:string;variants:Variant[]};
 
 export const categories=["Tous","Grandes marques","Parfums de niche","Parfums arabes","Décants"];
 export const decantFormats=[5,10,20] as const;
@@ -22,7 +22,7 @@ export const products:Product[]=[
   {id:"p12",slug:"french-avenue-liquid-brun",name:"Liquid Brun",brand:"French Avenue",category:"Parfums arabes",description:"Un gourmand boisé et chaleureux mêlant cannelle, vanille bourbon, praline et bois de gaïac.",notes:["Cannelle","Vanille bourbon","Praline"],badge:"Nouveau",image:"/products/catalog/french-liquid-brun-cutout.png",accent:"#6d402b",variants:[{id:"p12-100",label:"100 ml",price:599,stock:8,kind:"bottle"},...demoDecants("p12",599,100)]}
 ];
 
-export const money=(n:number)=>new Intl.NumberFormat("fr-MA",{style:"currency",currency:"MAD",maximumFractionDigits:0}).format(n);
+export const money=(n:number)=>new Intl.NumberFormat("fr-MA",{style:"currency",currency:"MAD",minimumFractionDigits:0,maximumFractionDigits:2}).format(n);
 export const variantVolumeMl=(variant:Variant)=>{const match=variant.label.match(/(?:^|[^\d])(\d+)\s*ml\b/i);return match?Number(match[1]):null};
 export const isDecantVariant=(variant:Variant,format?:number)=>{const volume=variantVolumeMl(variant);return variant.kind==="decant"&&volume!==null&&decantFormats.includes(volume as (typeof decantFormats)[number])&&(format===undefined||volume===format)};
 export const isBottleVariant=(variant:Variant)=>variant.kind==="bottle";

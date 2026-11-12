@@ -5,7 +5,9 @@ import Link from "next/link";
 import { ArrowRight, ChevronLeft, ChevronRight } from "lucide-react";
 import { motion, useReducedMotion } from "motion/react";
 import { useState } from "react";
-import { decantFormats, isDecantVariant, products } from "@/lib/data";
+import { decantFormats, isDecantVariant } from "@/lib/data";
+
+import { useStore } from "@/lib/store";
 
 const universes = [
   { title: "Grandes marques", label: "Dior · Chanel · YSL", image: "/products/catalog/armani-stronger-cutout.png", href: "/produits?category=Grandes%20marques" },
@@ -15,6 +17,8 @@ const universes = [
 
 export default function Home() {
   const reduce = useReducedMotion();
+  const { products: allProducts } = useStore();
+  const products = allProducts.filter(product => !product.archived);
   const [decantFormat, setDecantFormat] = useState<number>(10);
   const decantCount = products.filter((product) => product.variants.some((variant) => isDecantVariant(variant, decantFormat) && variant.stock > 0)).length;
   return <main className="nocturne-home">

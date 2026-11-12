@@ -1,3 +1,21 @@
-import {notFound} from "next/navigation";import {products} from "@/lib/data";import {ProductDetail} from "./product-detail";
-export function generateStaticParams(){return products.map(p=>({slug:p.slug}))}
-export default async function ProductPage({params}:{params:Promise<{slug:string}>}){const{slug}=await params;const product=products.find(p=>p.slug===slug);if(!product)notFound();return <ProductDetail product={product}/>}
+﻿import type { Metadata } from "next";
+import { products } from "@/lib/data";
+import { ProductRoute } from "./product-route";
+
+type PageProps = { params: Promise<{ slug: string }> };
+
+export function generateStaticParams() {
+  return products.map(product => ({ slug: product.slug }));
+}
+
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+  const { slug } = await params;
+  const product = products.find(item => item.slug === slug);
+  if (!product) return { title: "Parfum — Catalogue local", description: "Découvrez les parfums et formats du catalogue de démonstration La7ya Store." };
+  return { title: `${product.name} — ${product.brand}`, description: `${product.description} Découvrez les formats flacon et décant dans le catalogue de démonstration La7ya Store.` };
+}
+
+export default async function ProductPage({ params }: PageProps) {
+  const { slug } = await params;
+  return <ProductRoute slug={slug} />;
+}
