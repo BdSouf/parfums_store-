@@ -2,9 +2,19 @@
 .logo { display: block; width: 120px; height: 70px; }
 .logo img { width: 100%; height: 100%; object-fit: contain; filter: invert(1) grayscale(1) brightness(3); }
 .header > span { font-size: 8px; letter-spacing: .18em; color: #c8a46f; }
+.headerActions { display: flex; align-items: center; gap: 20px; }
+.headerActions > span { font-size: 8px; letter-spacing: .18em; color: #c8a46f; }
+.headerActions :global(.theme-toggle) { width: 38px; height: 38px; display: grid; place-items: center; padding: 0; background: transparent; color: #d7b47d; }
 .logo:focus-visible { outline: 2px solid #dfb471; outline-offset: 4px; }
 .footer { background: #0e0d0c; border-top: 1px solid #ffffff14; padding: 25px 5vw; display: flex; justify-content: space-between; gap: 20px; color: #aa9c88; font-size: 9px; line-height: 1.8; }
 .footer > span:first-child { color: #c9ad82; letter-spacing: .1em; }
 @media (max-width: 600px) { .header { height: 72px; }.logo { width: 106px; height: 62px; }.header > span { font-size: 7px; }.footer { flex-direction: column; gap: 7px; } }
 
 .storageError{margin:0;padding:18px 5vw;border:1px solid #dba17750;background:#2b2014;color:#f3c9a2;font-size:13px;line-height:1.8}
+
+:global(html[data-theme="light"]) .header.themeScope { border-color: #9265382c; background: #fffaf3; color: #5f5246; }
+:global(html[data-theme="light"]) .header.themeScope .logo img { filter: contrast(1.3); }
+:global(html[data-theme="light"]) .header.themeScope .headerActions > span { color: #916024; }
+:global(html[data-theme="light"]) .header.themeScope .headerActions :global(.theme-toggle) { color: #8f5b1c; background: #dca75d14 !important; border-color: #a7702b38 !important; }
+:global(html[data-theme="light"]) .footer.themeScope { border-color: #9265382c; background: #fbf5ed; color: #66594d; }
+:global(html[data-theme="light"]) .footer.themeScope > span:first-child { color: #8d5a1e; }

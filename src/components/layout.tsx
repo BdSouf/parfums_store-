@@ -2,8 +2,8 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowRight, Menu, Search, ShoppingBag, X } from "lucide-react";
-import { useEffect, useState } from "react";
+import { ArrowRight, Menu, Moon, Search, ShoppingBag, Sun, X } from "lucide-react";
+import { useEffect, useState, useSyncExternalStore } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { useStore } from "@/lib/store";
 
@@ -17,6 +17,24 @@ const links=[
   ["/produits?category=Parfums%20arabes","Parfums arabes"],
   ["/admin","Espace administrateur"],
 ];
+
+type Theme="dark"|"light";
+const themeListeners=new Set<()=>void>();
+const getThemeSnapshot=():Theme=>document.documentElement.dataset.theme==="light"?"light":"dark";
+const getThemeServerSnapshot=():Theme=>"dark";
+const subscribeTheme=(listener:()=>void)=>{themeListeners.add(listener);return()=>themeListeners.delete(listener)};
+const setDocumentTheme=(theme:Theme)=>{
+  document.documentElement.dataset.theme=theme;
+  document.documentElement.style.colorScheme=theme;
+  localStorage.setItem("la7ya-theme",theme);
+  themeListeners.forEach((listener)=>listener());
+};
+
+export function ThemeToggle(){
+  const theme=useSyncExternalStore(subscribeTheme,getThemeSnapshot,getThemeServerSnapshot);
+  const toggleTheme=()=>setDocumentTheme(theme==="dark"?"light":"dark");
+  return <button type="button" className="theme-toggle" onClick={toggleTheme} aria-label={theme==="dark"?"Activer le mode clair":"Activer le mode sombre"} title={theme==="dark"?"Mode clair":"Mode sombre"}>{theme==="dark"?<Sun size={19}/>:<Moon size={19}/>}</button>;
+}
 
 export function Header(){
   const[open,setOpen]=useState(false);
@@ -32,7 +50,7 @@ export function Header(){
       <button onClick={()=>setOpen(true)} className="menu modern" aria-label="Ouvrir le menu"><Menu/></button>
       <nav className="nav"><Link href="/produits?category=Grandes%20marques">Designers</Link><Link href="/produits?category=Parfums%20de%20niche">Niche</Link><Link href="/produits?category=Parfums%20arabes">Arabes</Link></nav>
       <Link href="/" className="header-brand" aria-label="La7ya Store, accueil"><Brand/></Link>
-      <div className="actions"><button onClick={()=>setSearch(true)} aria-label="Ouvrir la recherche"><Search size={20}/></button><Link href="/panier" className="bag" aria-label={`Panier, ${count} articles`}><ShoppingBag size={21}/>{count>0&&<motion.b key={count} initial={reduce?false:{scale:.5}} animate={{scale:1}}>{count}</motion.b>}</Link></div>
+      <div className="actions"><ThemeToggle/><button onClick={()=>setSearch(true)} aria-label="Ouvrir la recherche"><Search size={20}/></button><Link href="/panier" className="bag" aria-label={`Panier, ${count} articles`}><ShoppingBag size={21}/>{count>0&&<motion.b key={count} initial={reduce?false:{scale:.5}} animate={{scale:1}}>{count}</motion.b>}</Link></div>
     </header>
     <AnimatePresence>
       {open&&<motion.div className="mobile-drawer" initial={reduce?false:{x:"-100%"}} animate={{x:0}} exit={{x:"-100%"}} transition={{duration:reduce?0:.35,ease:[.22,1,.36,1]}}><div className="drawer-head"><Brand/><button onClick={()=>setOpen(false)} aria-label="Fermer"><X/></button></div><nav>{links.map(([href,label],i)=><motion.div key={href} initial={reduce?false:{opacity:0,x:-20}} animate={{opacity:1,x:0}} transition={{delay:reduce?0:.08+i*.04}}><Link href={href} onClick={()=>setOpen(false)}><span>0{i+1}</span>{label}<ArrowRight/></Link></motion.div>)}</nav><p>Démonstration commerciale · Rabat</p></motion.div>}

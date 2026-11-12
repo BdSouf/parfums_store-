@@ -8,6 +8,7 @@ import { categories, money, type Product } from "@/lib/data";
 import { useStore, type DemoOrder } from "@/lib/store";
 import styles from "./admin.module.css";
 import { ProductEditor } from "./product-editor";
+import { ThemeToggle } from "@/components/layout";
 
 type View = "overview" | "orders" | "catalog";
 const labels: Record<string, string> = { PENDING: "En attente", CONFIRMED: "Confirmée", PREPARING: "Préparation", SHIPPED: "Expédiée", DELIVERED: "Livrée", CANCELLED: "Annulée" };
@@ -69,7 +70,7 @@ export default function Admin() {
       <div className={styles.sidebarBottom}><Link href="/" className={styles.storeLink}><ArrowDownLeft size={16} /> Retour à la boutique</Link><div className={styles.profile}><span>LA</span><div><b>Administration</b><small>Session de démonstration</small></div><i /></div></div>
     </aside>
     <div className={styles.content}>
-      <div className={styles.topbar}><span>LA7YA STORE <ChevronRight size={12} /> Administration</span><span className={styles.localBadge}><i /> Données locales</span></div>
+      <div className={styles.topbar}><span>LA7YA STORE <ChevronRight size={12} /> Administration</span><div className={styles.topbarActions}><span className={styles.localBadge}><i /> Données locales</span><ThemeToggle/></div></div>
       <header className={styles.heading}><div><span className={styles.kicker}>{date}</span><h1>{titles[view].title}</h1><p>{titles[view].description}</p></div><span className={styles.demoTag}>MODE DÉMONSTRATION</span></header>
       {!ready ? <div className={styles.loading} role="status"><LayoutDashboard size={26} /><p>Chargement de votre espace de gestion…</p><div /><div /></div> : <>
         <section className={styles.metrics} aria-label="Indicateurs de la boutique">
