@@ -149,3 +149,71 @@
 :global(html[data-theme="light"]) .helpIcon { border-color: #a66f3048; color: #95601f; background: #d3a26012; }
 :global(html[data-theme="light"]) .unavailable > p { color: #65594d; }
 :global(html[data-theme="light"]) .unavailable > .unavailableHint { color: #786a5d; }
+
+/* Confirmation mobile compacte : reçu lisible sans longues zones vides. */
+@media (max-width: 600px) {
+  .container { padding: 14px 4vw calc(42px + env(safe-area-inset-bottom)); }
+  .heading { padding-bottom: 20px; }
+  .steps { position: relative; justify-content: space-between; gap: 0; margin-bottom: 20px; }
+  .steps::before { content: ''; position: absolute; z-index: 0; top: 13px; left: 15%; right: 15%; height: 1px; background: #d3a26040; }
+  .steps li { position: relative; z-index: 1; flex: 1; flex-direction: column; gap: 4px; font-size: 10px; text-align: center; }
+  .steps li + li::before { display: none; }
+  .steps li > span { width: 27px; height: 27px; background: #0e0d0c; }
+  .successIcon { width: 52px; height: 52px; margin-bottom: 15px; }
+  .successIcon > svg { width: 25px; }
+  .heading > :global(.nocturne-kicker) { margin-bottom: 10px; font-size: 8px; }
+  .heading h1 { font-size: clamp(43px, 12vw, 55px); }
+  .heading > p { margin-top: 10px; font-size: 12px; line-height: 1.5; }
+  .heading > p > span { font-size: 11px; }
+  .layout { gap: 10px; }
+  .receipt { border-radius: 10px; }
+  .receiptHeader { margin: 0 14px; padding: 14px 0 12px; gap: 8px; }
+  .kicker { font-size: 9px; }
+  .reference { margin-top: 5px; font-size: 14px; }
+  .status { padding: 5px 8px; font-size: 9px; }
+  .receiptHeading { padding: 14px 14px 3px; }
+  .receiptHeading h2 { font-size: 27px; }
+  .receiptHeading > span { font-size: 10px; }
+  .items { padding: 0 14px 8px; }
+  .items li { grid-template-columns: 46px minmax(0, 1fr) auto; gap: 9px; padding: 10px 0; }
+  .thumbnail { height: 58px; border-radius: 20px 20px 4px 4px; }
+  .thumbnail img { padding: 6px; }
+  .product > small { font-size: 9px; }
+  .product h3 { margin: 4px 0; font-size: 21px; }
+  .product p { font-size: 10px; line-height: 1.4; }
+  .quantity { padding: 4px 6px; font-size: 10px; }
+  .receipt :global(.heritage-order-breakdown) { margin: 0 14px; padding: 11px 0; }
+  .total { padding: 15px 14px; }
+  .total span, .total small { font-size: 10px; }
+  .total strong { font-size: clamp(23px, 7vw, 28px); }
+  .receiptFoot { padding: 10px 14px; font-size: 8px; }
+  .details { padding: 15px; border-radius: 10px; }
+  .detailTitle { gap: 8px; margin-top: 9px; }
+  .detailTitle h2 { font-size: 27px; }
+  .address { padding: 12px 0 13px; }
+  .address > b, .address p { font-size: 12px; line-height: 1.55; }
+  .address p { margin-top: 4px; }
+  .contact { padding-top: 12px; }
+  .contact p { margin-top: 7px; font-size: 12px; line-height: 1.5; }
+  .sideColumn { display: grid; gap: 10px; }
+  .sideColumn > .details + .details { margin-top: 0; }
+  .sideColumn :global(.heritage-receipt-actions) { padding: 14px 15px; }
+  .sideColumn :global(.heritage-receipt-actions) p { margin-block: 8px; }
+  .sideColumn :global(.heritage-text-action) { min-height: 44px; }
+  .demoNote { display: none; }
+  .primary { min-height: 50px; padding: 13px 15px; font-size: 13px; }
+  .unavailable { min-height: 60vh; padding: 28px 0; }
+  .helpIcon { width: 58px; height: 58px; margin-bottom: 20px; }
+  .unavailable h1 { font-size: 41px; }
+}
+
+@media (max-width: 360px) {
+  .items li { grid-template-columns: 42px minmax(0, 1fr); }
+  .quantity { grid-column: 2; justify-self: end; }
+  .receiptHeader { align-items: flex-start; }
+  .status > small { display: none; }
+}
+
+@media (max-width: 600px) {
+  :global(html[data-theme="light"]) .steps li > span { background: #fffaf3; }
+}

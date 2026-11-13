@@ -3,7 +3,7 @@
 import Image from 'next/image';
 import { ArrowRight, ChevronLeft, ChevronRight } from 'lucide-react';
 import { motion, useReducedMotion } from 'motion/react';
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { decantFormats, isDecantVariant } from '@/lib/data';
 import { useStore } from '@/lib/store';
 import { MLink, useMarket } from './market-context';
@@ -14,6 +14,7 @@ export function HeritageHome() {
  const s = useStore(), m = useMarket(), { t } = m;
  const reduce = useReducedMotion();
  const [format, setFormat] = useState(10), [slide, setSlide] = useState(0);
+ const touchStart = useRef<{ x: number; y: number } | null>(null);
  const products = s.products.filter(p => !p.archived);
  const count = products.filter(p => p.variants.some(v => isDecantVariant(v, format) && v.stock > 0)).length;
  const slides = [
@@ -29,7 +30,17 @@ export function HeritageHome() {
  const defaultTitle = m.lang === 'fr' ? s.content.heroFr === 'L’élégance laisse une trace.' : s.content.heroAr === 'الأناقة تترك أثراً.';
  const defaultIntro = m.lang === 'fr' ? s.content.introFr === 'Flacons et décants. Explorez votre prochaine signature.' : s.content.introAr === 'زجاجات وأحجام صغيرة. اكتشف عطرك القادم.';
  return <div className="nocturne-home heritage-home">
-  <section className="nocturne-hero">
+  <section className="nocturne-hero" onTouchStart={event => {
+   const touch = event.touches[0];
+   touchStart.current = touch ? { x: touch.clientX, y: touch.clientY } : null;
+  }} onTouchEnd={event => {
+   const start = touchStart.current, touch = event.changedTouches[0];
+   touchStart.current = null;
+   if (!start || !touch) return;
+   const deltaX = touch.clientX - start.x, deltaY = touch.clientY - start.y;
+   if (Math.abs(deltaX) < 45 || Math.abs(deltaX) <= Math.abs(deltaY)) return;
+   setSlide(current => deltaX < 0 ? (current + 1) % slides.length : (current + slides.length - 1) % slides.length);
+  }}>
    <motion.div key={slides[slide].image} className="nocturne-hero-image" initial={reduce ? false : { opacity: 0, scale: 1.06 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 1.1, ease: [.22, 1, .36, 1] }}>
     <Image src={slides[slide].image} alt={slides[slide].alt} fill priority sizes="100vw" />
    </motion.div>

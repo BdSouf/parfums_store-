@@ -93,6 +93,10 @@
 .loading { min-height: 480px; padding: 60px 0; color: #d4b37c; }
 .loading p { font-size: 12px; }
 .loading > div { height: 110px; border: 1px solid var(--cart-line); background: linear-gradient(120deg, #ffffff03, #d5a15d0c, #ffffff03); border-radius: 8px; margin-top: 18px; }
+.mobileCheckoutBar { display: none; }
+.receptionIcon, .receptionChevron { display: none; }
+.receptionSummary b { font: inherit; font-weight: 400; }
+.receptionSummary small { display: none; }
 @media (min-width: 1600px) { .container { padding-left: 80px; padding-right: 80px; } }
 @media (max-width: 1100px) {
   .heading { align-items: flex-start; flex-direction: column; gap: 30px; }
@@ -124,6 +128,72 @@
 }
 @media (max-width: 360px) {
   .heading h1 { font-size: 47px; }.steps { gap: 6px; }.steps li { font-size: 7px; }.steps li + li::before { display: none; }.line { grid-template-columns: 75px minmax(0, 1fr); gap: 11px; }.thumbnail { height: 110px; }.productInfo h3 { font-size: 24px; }.lineActions { gap: 9px; }.lineActions > strong { font-size: 12px; }.quantity { width: 91px; }
+}
+/* Mobile panier: lisibilité, zones tactiles et rythme sans modifier le rendu desktop. */
+@media (max-width: 600px) {
+  .container { padding: 0 5vw calc(135px + env(safe-area-inset-bottom)); }
+  .breadcrumb { min-height: 48px; padding: 10px 0; font-size: 12px; }
+  .breadcrumb a { min-height: 44px; }
+  .heading { padding: 20px 0 28px; gap: 22px; }
+  .heading h1 { font-size: clamp(45px, 13vw, 58px); }
+  .heading p { margin-top: 14px; font-size: 13px; line-height: 1.7; }
+  .steps { gap: 5px; align-items: flex-start; }
+  .steps li { flex: 1; flex-direction: column; justify-content: flex-start; gap: 6px; min-width: 0; font-size: 11px; line-height: 1.25; text-align: center; }
+  .steps li > span { width: 32px; height: 32px; font-size: 11px; }
+  .steps li + li::before { display: none; }
+  .selection { padding: 0 14px; border: 1px solid var(--cart-line); border-radius: 13px; background: #ffffff02; }
+  .listHeading { padding: 17px 0; }
+  .listHeading h2, .listHeading h2 > span, .listHeading > span { font-size: 12px; }
+  .line { grid-template-columns: 84px minmax(0, 1fr); gap: 13px; padding: 20px 0; }
+  .thumbnail { height: 116px; border-radius: 42px 42px 7px 7px; }
+  .thumbnail img { padding: 11px; }
+  .brand { margin-bottom: 7px; font-size: 12px; letter-spacing: .11em; }
+  .productInfo h3 { margin-bottom: 9px; font-size: clamp(23px, 7vw, 29px); line-height: 1.05; }
+  .variant, .variant > span:first-child, .unitPrice { font-size: 12px; line-height: 1.45; }
+  .variant > span:first-child { padding: 5px 8px; }
+  .lineActions { grid-column: 1 / -1; display: grid; grid-template-columns: minmax(0, 1fr) auto auto; width: 100%; gap: 8px; align-items: center; }
+  .lineActions > strong { justify-self: start; margin: 0; font-size: 16px; }
+  .quantity { width: 118px; height: 46px; }
+  .quantity button { width: 44px; height: 44px; touch-action: manipulation; }
+  .quantity > span { font-size: 13px; }
+  .remove { min-height: 44px; margin: 0; padding: 8px; font-size: 12px; touch-action: manipulation; }
+  .stockWarning, .stockWarning button { font-size: 12px; }
+  .layout { gap: 12px; }
+  .summary { padding: 7px 14px 13px; border-radius: 13px; box-shadow: none; }
+  .summary > :global(.nocturne-kicker), .summary h2 { display: none; }
+  .page :global(.heritage-rewards summary), .page :global(.heritage-reception) { min-height: 44px; font-size: 12px; }
+  .page :global(.heritage-rewards summary) { display: flex; align-items: center; }
+  .page :global(.heritage-reception select) { min-height: 48px; font-size: 16px; }
+  .breakdown { gap: 15px; margin-bottom: 21px; padding-bottom: 20px; }
+  .breakdown > div, .breakdown dt > span, .breakdown .pending { font-size: 12px; }
+  .total { align-items: flex-end; }
+  .total > span, .total small { font-size: 12px; line-height: 1.5; }
+  .total output { font-size: clamp(24px, 7vw, 29px); }
+  .primary { min-height: 52px; font-size: 13px; touch-action: manipulation; }
+  .nextStep, .demo, .demo > span { font-size: 12px; line-height: 1.65; }
+  .undoNotice p, .undoNotice > button { font-size: 12px; }
+  .undoNotice > button { min-height: 44px; }
+  .emptyCopy { padding: 30px 20px; }
+  .empty h2 { font-size: clamp(38px, 11vw, 49px); }
+  .emptyCopy > p { font-size: 13px; line-height: 1.75; }
+  .emptyArt { min-height: 245px; }
+  .emptyArt > span, .emptyArt > small { font-size: 12px; letter-spacing: .12em; }
+  .summary .breakdown, .summary .total, .summary > .primary, .summary .nextStep, .summary .demo { display: none; }
+  .summary :global(.heritage-rewards) { margin-top: 0; }
+  .mobileCheckoutBar { position: fixed; z-index: 45; inset-inline: 0; bottom: 0; display: grid; grid-template-columns: minmax(105px, .75fr) minmax(0, 1.4fr); align-items: center; gap: 14px; padding: 13px max(5vw, env(safe-area-inset-right)) calc(13px + env(safe-area-inset-bottom)) max(5vw, env(safe-area-inset-left)); border-top: 1px solid #d3a26047; border-radius: 22px 22px 0 0; background: #15110df5; box-shadow: 0 -14px 38px #0005; backdrop-filter: blur(18px); }
+  .mobileCheckoutBar > div { display: grid; gap: 3px; min-width: 0; }
+  .mobileCheckoutBar span, .mobileCheckoutBar small { font-size: 12px; color: var(--cart-muted); }
+  .mobileCheckoutBar strong { overflow: hidden; color: #f0c88a; font: 500 clamp(18px, 6vw, 25px)/1.15 var(--font-display); text-overflow: ellipsis; white-space: nowrap; }
+  .mobileCheckoutAction { min-height: 54px; display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 13px 15px; border: 1px solid #e2b16a; border-radius: 7px; background: linear-gradient(110deg, #b77a35, #edc889); color: #1b130b; font-size: 13px; font-weight: 600; touch-action: manipulation; }
+  .mobileCheckoutAction[aria-disabled="true"] { opacity: .5; }
+}
+@media (max-width: 360px) {
+  .line { grid-template-columns: 76px minmax(0, 1fr); gap: 11px; }
+  .thumbnail { height: 108px; }
+  .lineActions { grid-template-columns: 1fr auto; }
+  .lineActions > strong { grid-column: 1; }
+  .quantity { grid-column: 2; grid-row: 1; width: 112px; }
+  .remove { grid-column: 1 / -1; justify-self: end; }
 }
 @media (prefers-reduced-motion: reduce) {
   .page * { transition: none !important; scroll-behavior: auto !important; }.primary:hover, .thumbnail:hover img { transform: none; }
@@ -176,3 +246,62 @@
 :global(html[data-theme="light"]) .emptyArt > span,:global(html[data-theme="light"]) .emptyArt > small { color: #5e4328; }
 :global(html[data-theme="light"]) .loading { color: #956020; }
 :global(html[data-theme="light"]) .loading > div { background: linear-gradient(120deg, #fffaf3, #d7a55d1f, #fffaf3); }
+@media (max-width: 600px) {
+  :global(html[data-theme="light"]) .selection { background: #fffaf375; }
+  :global(html[data-theme="light"]) .mobileCheckoutBar { border-color: #a9743b46; background: #fffaf3f4; box-shadow: 0 -14px 38px #68451f24; }
+  :global(html[data-theme="light"]) .mobileCheckoutBar strong { color: #8e5718; }
+}
+
+/* Panier mobile compact inspiré de la maquette fournie. */
+@media (max-width: 600px) {
+  .breadcrumb { min-height: 40px; padding-block: 5px; }
+  .heading { padding: 10px 0 20px; gap: 16px; }
+  .heading > div > :global(.nocturne-kicker) { display: none; }
+  .heading h1 { font-size: clamp(40px, 11.5vw, 50px); }
+  .heading p { margin-top: 8px; font-size: 12px; line-height: 1.5; }
+  .steps { gap: 3px; }
+  .steps li { gap: 4px; font-size: 10px; }
+  .steps li > span { width: 29px; height: 29px; font-size: 10px; }
+  .selection { padding-inline: 11px; }
+  .listHeading { padding: 12px 0; }
+  .listHeading h2 { font-size: 13px; }
+  .listHeading > span { display: none; }
+  .line { grid-template-columns: 70px minmax(0, 1fr) 94px; gap: 10px; align-items: center; padding: 12px 0; }
+  .thumbnail { grid-row: auto; height: 94px; border-radius: 35px 35px 6px 6px; }
+  .thumbnail img { padding: 9px; }
+  .brand { margin-bottom: 4px; font-size: 10px; }
+  .productInfo h3 { margin-bottom: 6px; font-size: clamp(20px, 5.8vw, 25px); }
+  .variant { gap: 4px; margin-bottom: 5px; font-size: 10px; }
+  .variant > span:first-child { padding: 3px 6px; font-size: 10px; }
+  .unitPrice { font-size: 10px; }
+  .lineActions { grid-column: auto; display: flex; width: 94px; flex-direction: column; align-items: flex-end; gap: 5px; }
+  .lineActions > strong { order: 2; margin: 0; font-size: 12px; }
+  .quantity { order: 1; width: 94px; height: 38px; }
+  .quantity button { width: 36px; height: 36px; }
+  .quantity > span { font-size: 12px; }
+  .remove { order: 3; min-width: 38px; min-height: 32px; margin: 0; padding: 5px; font-size: 0; }
+  .remove svg { width: 16px; height: 16px; }
+  .summary { padding-block: 3px 8px; }
+  .summary :global(.heritage-rewards) { display: none; }
+  .page .receptionLabel { position: relative; grid-template-columns: 28px minmax(0, 1fr) 18px; align-items: center; gap: 10px; min-height: 62px; margin-top: 5px; padding: 10px 13px; border: 1px solid #d3a26047; border-radius: 9px; background: #ffffff03; color: var(--cart-gold); }
+  .receptionIcon, .receptionChevron { display: block; flex-shrink: 0; }
+  .receptionSummary { display: grid; gap: 3px; min-width: 0; }
+  .receptionSummary b { color: #f1e7d9; font: 400 16px/1.2 var(--font-display); }
+  .receptionSummary small { display: block; overflow: hidden; color: var(--cart-muted); font-size: 11px; line-height: 1.3; text-overflow: ellipsis; white-space: nowrap; }
+  .page .receptionLabel select { position: absolute; inset: 0; width: 100%; height: 100%; min-height: 0; cursor: pointer; opacity: 0; }
+  .page .receptionLabel:has(select:focus-visible) { outline: 2px solid var(--cart-gold); outline-offset: 3px; }
+  .mobileCheckoutBar { gap: 10px; padding-top: 9px; padding-bottom: calc(9px + env(safe-area-inset-bottom)); }
+  .mobileCheckoutAction { min-height: 48px; padding-block: 10px; }
+}
+@media (max-width: 360px) {
+  .line { grid-template-columns: 62px minmax(0, 1fr) 88px; gap: 8px; }
+  .thumbnail { height: 86px; }
+  .lineActions { grid-column: auto; width: 88px; }
+  .quantity { grid-column: auto; grid-row: auto; width: 88px; }
+  .remove { grid-column: auto; justify-self: auto; }
+}
+
+@media (max-width: 600px) {
+  :global(html[data-theme="light"]) .page .receptionLabel { border-color: #a9743b46; background: #fffaf385; color: #8e5718; }
+  :global(html[data-theme="light"]) .receptionSummary b { color: #251a12; }
+}

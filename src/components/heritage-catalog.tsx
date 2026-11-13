@@ -35,6 +35,18 @@ export function HeritageCatalog() {
  const s = useStore(), m = useMarket(), { t } = m, params = useSearchParams(), router = useRouter(), reduce = useReducedMotion();
  const [filters, setFilters] = useState(false);
  const searchId = useId(), searchInput = useRef<HTMLInputElement>(null);
+ useEffect(() => {
+  if (!filters) return;
+  const previousOverflow = document.body.style.overflow;
+  document.body.style.overflow = 'hidden';
+  const closeOnEscape = (event: KeyboardEvent) => { if (event.key === 'Escape') setFilters(false); };
+  window.addEventListener('keydown', closeOnEscape);
+  return () => {
+   document.body.style.overflow = previousOverflow;
+   window.removeEventListener('keydown', closeOnEscape);
+   requestAnimationFrame(() => document.querySelector<HTMLButtonElement>('.heritage-catalog .mobile-filter-trigger')?.focus());
+  };
+ }, [filters]);
  const result = catalogQuery(s, new URLSearchParams(params.toString()));
  const change = (key: string, value: string) => { const next = new URLSearchParams(params); if (value) next.set(key, value); else next.delete(key); if (key !== 'page') next.delete('page'); router.replace(m.href(`/produits?${next}`), { scroll: false }); };
  const unique = (values: (string | undefined)[]) => [...new Set(values.filter((x): x is string => !!x))].sort();
@@ -44,8 +56,10 @@ export function HeritageCatalog() {
  const chips = [...params.entries()].filter(([k]) => !['lang', 'sort', 'page', 'category', 'q'].includes(k));
  return <div className="nocturne-home catalog-nocturne catalog-compact heritage-catalog">
   <section className="catalog-stage" aria-label={t('Liste des produits', 'قائمة المنتجات')}>
+   <MLink className="catalog-back" href="/"><span aria-hidden="true">←</span>{t('Catalogue', 'الكتالوج')}</MLink>
    <header className="catalog-heading"><div><span className="nocturne-kicker">{t('LA COLLECTION LA7YA', 'مجموعة La7ya')}</span><h1>{t('Tous les parfums', 'جميع العطور')}<span>.</span></h1></div><p>{t('Flacons et décants. Trouvez le parfum qui vous ressemble.', 'زجاجات وأحجام صغيرة. اعثر على العطر الذي يشبهك.')}</p></header>
    <div className="catalog-tools heritage-search-toolbar">
+    <div className="catalog-toolbar-count"><b><span>{String(result.rows.length).padStart(2, '0')}</span>{t('produits', 'منتجات')}</b></div>
     <div className="heritage-search-field" role="search" aria-label={t('Recherche dans la collection', 'البحث في المجموعة')}>
      <span className="heritage-search-symbol" aria-hidden="true"><Search size={21} strokeWidth={1.5} /></span>
      <div className="heritage-search-copy"><label htmlFor={searchId}>{t('Trouvez votre signature', 'اعثر على عطرك المميز')}</label><input ref={searchInput} id={searchId} type="search" autoComplete="off" spellCheck={false} value={params.get('q') || ''} aria-label={t('Rechercher dans le catalogue', 'بحث في المجموعة')} onChange={e => change('q', e.target.value)} placeholder={t('Un parfum, une maison, une note…', 'عطر، ماركة، نفحة…')} /></div>
