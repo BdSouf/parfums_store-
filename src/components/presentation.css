@@ -73,6 +73,61 @@ html[dir="rtl"] .heritage-services .m-intro h1{line-height:1.35;letter-spacing:0
  .heritage-home .decant-format-value{font-size:22px}
 }
 
+/* Feuille de filtres mobile courte et éditoriale. */
+@media(max-width:700px){
+ .heritage-catalog .heritage-filter-drawer{
+  max-height:min(82dvh,650px);
+  padding:0 18px max(12px,env(safe-area-inset-bottom));
+  overflow-y:auto;
+  border-radius:24px 24px 0 0;
+ }
+ .heritage-catalog .filter-handle{display:block;width:44px;height:4px;margin:10px auto 0;border-radius:10px;background:#ffffff30}
+ .heritage-catalog .heritage-filter-drawer>header{padding:13px 0 12px}
+ .heritage-catalog .heritage-filter-drawer>header .nocturne-kicker{font-size:8px}
+ .heritage-catalog .heritage-filter-drawer>header h2{margin-top:6px;font-size:31px;line-height:1}
+ .heritage-catalog .heritage-filter-drawer>header button{width:40px;height:40px}
+ .heritage-catalog .mobile-filter-content{display:grid;gap:15px;padding:14px 0 4px}
+ .heritage-catalog .mobile-filter-content section>span,
+ .heritage-catalog .mobile-filter-essential>label,
+ .heritage-catalog .mobile-filter-essential>div>span{display:block;color:#d6b27a;font-size:9px;letter-spacing:.08em;text-transform:uppercase}
+ .heritage-catalog .mobile-filter-content .filter-options{display:flex;gap:7px;margin:8px 0 0;overflow-x:auto;padding-bottom:3px;scrollbar-width:none}
+ .heritage-catalog .mobile-filter-content .filter-options::-webkit-scrollbar{display:none}
+ .heritage-catalog .mobile-filter-content .filter-options button{flex:0 0 auto;min-height:38px;padding:7px 13px;border-radius:30px;font-size:11px}
+ .heritage-catalog .mobile-filter-essential{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+ .heritage-catalog .mobile-filter-essential label{gap:7px}
+ .heritage-catalog .mobile-filter-essential select{width:100%;min-height:44px;margin-top:7px;padding:9px 11px;border:1px solid #ffffff20;border-radius:8px;background:#171411;color:#f4ede3;font-size:13px}
+ .heritage-catalog .mobile-type-options{display:grid;grid-template-columns:repeat(3,1fr);margin-top:7px;border:1px solid #ffffff20;border-radius:8px;overflow:hidden}
+ .heritage-catalog .mobile-type-options button{min-width:0;min-height:42px;padding:6px 4px;border:0;border-inline-end:1px solid #ffffff18;background:transparent;color:#cdbda7;font-size:10px}
+ .heritage-catalog .mobile-type-options button:last-child{border-inline-end:0}
+ .heritage-catalog .mobile-type-options button.active{background:#d8a458;color:#17120d}
+ .heritage-catalog .mobile-decant-formats>div{display:flex;gap:7px;margin-top:8px}
+ .heritage-catalog .mobile-decant-formats button{flex:1;min-height:38px;border:1px solid #ffffff20;border-radius:8px;background:transparent;color:#d8c9b4;font-size:11px}
+ .heritage-catalog .mobile-decant-formats button.active{border-color:#d8a458;background:#d8a458;color:#17120d}
+ .heritage-catalog .mobile-stock-toggle{display:flex;flex-direction:row;align-items:center;justify-content:space-between;gap:14px;min-height:54px;padding:10px 12px;border:1px solid #ffffff18;border-radius:10px;color:#f4ede3}
+ .heritage-catalog .mobile-stock-toggle span{display:grid;gap:2px}
+ .heritage-catalog .mobile-stock-toggle b{font-size:12px;font-weight:500}
+ .heritage-catalog .mobile-stock-toggle small{color:#a99b88;font-size:9px}
+ .heritage-catalog .mobile-stock-toggle input{width:20px;height:20px;accent-color:#d8a458}
+ .heritage-catalog .mobile-filter-actions{position:sticky;z-index:3;bottom:0;display:grid;grid-template-columns:auto minmax(0,1fr);gap:10px;align-items:center;padding:12px 0 max(2px,env(safe-area-inset-bottom));background:#151310;box-shadow:0 -10px 22px #151310}
+ .heritage-catalog .mobile-filter-actions>a{min-height:46px;padding:14px 4px;color:#c5b49d;font-size:10px;text-decoration:underline;text-underline-offset:4px;white-space:nowrap}
+ .heritage-catalog .heritage-filter-drawer .mobile-filter-actions .filter-apply{position:static;min-height:46px;margin:0;box-shadow:none;font-size:11px}
+}
+
+@media(max-width:380px){
+ .heritage-catalog .mobile-filter-essential{grid-template-columns:1fr}
+}
+
+@media(max-width:700px){
+ html[data-theme="light"] .heritage-catalog .filter-handle{background:#6f4a2526}
+ html[data-theme="light"] .heritage-catalog .mobile-filter-essential select{border-color:#8f683c35;background:#fffdf8;color:#2a2018}
+ html[data-theme="light"] .heritage-catalog .mobile-type-options{border-color:#8f683c35}
+ html[data-theme="light"] .heritage-catalog .mobile-type-options button{border-color:#8f683c28;color:#6e5944}
+ html[data-theme="light"] .heritage-catalog .mobile-stock-toggle{border-color:#8f683c2d;color:#2a2018;background:#fffdf866}
+ html[data-theme="light"] .heritage-catalog .mobile-stock-toggle small{color:#796958}
+ html[data-theme="light"] .heritage-catalog .mobile-filter-actions{background:#fffaf3;box-shadow:0 -10px 22px #fffaf3}
+ html[data-theme="light"] .heritage-catalog .mobile-filter-actions>a{color:#77542f}
+}
+
 /* Responsive storefront shell and homepage.
    Everything stays scoped to the existing heritage presentation so the
    catalogue, purchase flow and administration keep their current layout. */
@@ -422,4 +477,15 @@ html[data-theme="light"] .heritage-catalog .catalog-toolbar-count b span{color:#
 @media(max-width:700px){
  html[data-theme="light"] .heritage-catalog .heritage-filter-drawer>header{background:#fffaf3;border-color:#8f683c24}
  html[data-theme="light"] .heritage-catalog .heritage-filter-drawer .filter-apply{box-shadow:0 -12px 24px #fffaf3}
+}
+
+/* Overrides finaux du panneau mobile, après les anciens styles du catalogue. */
+@media(max-width:700px){
+ .heritage-catalog .heritage-filter-drawer{max-height:min(82dvh,650px);padding:0 18px max(12px,env(safe-area-inset-bottom));border-radius:24px 24px 0 0}
+ .heritage-catalog .heritage-filter-drawer>header{padding:13px 0 12px}
+ .heritage-catalog .heritage-filter-drawer>header h2{margin-top:6px;font-size:31px;line-height:1}
+ .heritage-catalog .mobile-filter-content .filter-options{display:flex;gap:7px;margin:8px 0 0;overflow-x:auto;padding-bottom:3px}
+ .heritage-catalog .mobile-filter-content .filter-options button{flex:0 0 auto;min-height:38px;padding:7px 13px;border-radius:30px;font-size:11px}
+ .heritage-catalog .heritage-filter-drawer .mobile-filter-actions .filter-apply{position:static;margin:0;box-shadow:none}
+ html[data-theme="light"] .heritage-catalog .heritage-filter-drawer .mobile-filter-actions .filter-apply{box-shadow:none}
 }
