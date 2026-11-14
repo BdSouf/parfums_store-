@@ -103,11 +103,6 @@ html[dir="rtl"] .heritage-services .m-intro h1{line-height:1.35;letter-spacing:0
  .heritage-catalog .mobile-decant-formats>div{display:flex;gap:7px;margin-top:8px}
  .heritage-catalog .mobile-decant-formats button{flex:1;min-height:38px;border:1px solid #ffffff20;border-radius:8px;background:transparent;color:#d8c9b4;font-size:11px}
  .heritage-catalog .mobile-decant-formats button.active{border-color:#d8a458;background:#d8a458;color:#17120d}
- .heritage-catalog .mobile-stock-toggle{display:flex;flex-direction:row;align-items:center;justify-content:space-between;gap:14px;min-height:54px;padding:10px 12px;border:1px solid #ffffff18;border-radius:10px;color:#f4ede3}
- .heritage-catalog .mobile-stock-toggle span{display:grid;gap:2px}
- .heritage-catalog .mobile-stock-toggle b{font-size:12px;font-weight:500}
- .heritage-catalog .mobile-stock-toggle small{color:#a99b88;font-size:9px}
- .heritage-catalog .mobile-stock-toggle input{width:20px;height:20px;accent-color:#d8a458}
  .heritage-catalog .mobile-filter-actions{position:sticky;z-index:3;bottom:0;display:grid;grid-template-columns:auto minmax(0,1fr);gap:10px;align-items:center;padding:12px 0 max(2px,env(safe-area-inset-bottom));background:#151310;box-shadow:0 -10px 22px #151310}
  .heritage-catalog .mobile-filter-actions>a{min-height:46px;padding:14px 4px;color:#c5b49d;font-size:10px;text-decoration:underline;text-underline-offset:4px;white-space:nowrap}
  .heritage-catalog .heritage-filter-drawer .mobile-filter-actions .filter-apply{position:static;min-height:46px;margin:0;box-shadow:none;font-size:11px}
@@ -122,8 +117,6 @@ html[dir="rtl"] .heritage-services .m-intro h1{line-height:1.35;letter-spacing:0
  html[data-theme="light"] .heritage-catalog .mobile-filter-essential select{border-color:#8f683c35;background:#fffdf8;color:#2a2018}
  html[data-theme="light"] .heritage-catalog .mobile-type-options{border-color:#8f683c35}
  html[data-theme="light"] .heritage-catalog .mobile-type-options button{border-color:#8f683c28;color:#6e5944}
- html[data-theme="light"] .heritage-catalog .mobile-stock-toggle{border-color:#8f683c2d;color:#2a2018;background:#fffdf866}
- html[data-theme="light"] .heritage-catalog .mobile-stock-toggle small{color:#796958}
  html[data-theme="light"] .heritage-catalog .mobile-filter-actions{background:#fffaf3;box-shadow:0 -10px 22px #fffaf3}
  html[data-theme="light"] .heritage-catalog .mobile-filter-actions>a{color:#77542f}
 }
